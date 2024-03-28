@@ -1,25 +1,22 @@
 const path = require('path');
 const TerserPlugin = require("terser-webpack-plugin");
+const webpack = require('webpack');
 
 module.exports = {
     mode: 'development',
     entry: {
-        'app': './app/index',
-        'src': './src/index',
+        'app': [
+            'webpack-hot-middleware/client',
+            './app/index'
+        ],
     },
     output: {
         filename: '[name].js',
-        path: path.resolve(__dirname, 'build/js')
+        path: path.resolve(__dirname, 'build/js'),
+        publicPath: '/js/'
     },
     resolve: {
         extensions: ['.tsx', '.ts', '.js']
-    },
-    devServer: {
-        static: {
-            directory: path.join(__dirname, 'build'),
-        },
-        compress: true,
-        port: 9000,
     },
     optimization: {
         minimizer: [
@@ -52,5 +49,7 @@ module.exports = {
             }
         ],
     },
+    plugins: [
+        new webpack.HotModuleReplacementPlugin()
+    ]
 };
-
