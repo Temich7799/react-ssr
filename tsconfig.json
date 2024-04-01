@@ -8,5 +8,5 @@
     "skipLibCheck": true ,
     "moduleResolution": "node"
   },
-  "include": ["**/*.ts", "**/*.tsx", "webpack.config.js", "server/index.js"]
+  "include": ["**/*.ts", "**/*.tsx", "webpack.config.ts", "server/index.ts"]
 }

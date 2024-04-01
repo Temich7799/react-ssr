@@ -1,14 +1,22 @@
-const path = require('path');
-const TerserPlugin = require("terser-webpack-plugin");
-const webpack = require('webpack');
+require('ts-node/register');
 
-module.exports = {
+
+import path from 'path';
+import TerserPlugin from 'terser-webpack-plugin';
+import webpack from 'webpack';
+// import NodePolyfillPlugin from 'node-polyfill-webpack-plugin'
+
+const config: webpack.Configuration = {
     mode: 'development',
+    target: 'node',
+    // entry: {
+    //     'app': [
+    //         'webpack-hot-middleware/client',
+    //         './server/index'
+    //     ],
+    // },
     entry: {
-        'app': [
-            'webpack-hot-middleware/client',
-            './app/index'
-        ],
+        'app': './server/index',
     },
     output: {
         filename: '[name].js',
@@ -16,7 +24,10 @@ module.exports = {
         publicPath: '/js/'
     },
     resolve: {
-        extensions: ['.tsx', '.ts', '.js']
+        extensions: ['.tsx', '.ts', '.js'],
+        fallback: {
+
+        }
     },
     optimization: {
         minimizer: [
@@ -47,9 +58,12 @@ module.exports = {
                 exclude: /node_modules/,
                 use: 'babel-loader'
             }
-        ],
+        ]
     },
     plugins: [
-        new webpack.HotModuleReplacementPlugin()
+        new webpack.HotModuleReplacementPlugin(),
+        // new NodePolyfillPlugin()
     ]
 };
+
+export default config;
